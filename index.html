@@ -112,44 +112,148 @@
             display: block;
         }
 
-        /* Основной скролл контейнер */
-        .main-scroll-container {
+        /* Адаптивные стили для мобильных */
+        @media (max-height: 700px) and (orientation: landscape) {
+            section {
+                padding: 1.5rem !important;
+            }
+            
+            .name-glow {
+                font-size: 3rem !important;
+            }
+            
+            .typing-text {
+                font-size: 1.2rem !important;
+                margin-bottom: 1.5rem !important;
+                min-height: 2.5rem !important;
+            }
+            
+            .hint {
+                font-size: 0.9rem !important;
+                margin-top: 1.5rem !important;
+                padding: 0.8rem 1.5rem !important;
+            }
+            
+            .scene-title {
+                font-size: 1.5rem !important;
+                margin-bottom: 1rem !important;
+            }
+            
+            .scene-text {
+                font-size: 1rem !important;
+                line-height: 1.5 !important;
+                margin-bottom: 1.5rem !important;
+            }
+            
+            .islamic-quote {
+                font-size: 0.9rem !important;
+                padding: 1rem !important;
+                margin-top: 1rem !important;
+            }
+            
+            .scene-number {
+                font-size: 3rem !important;
+                top: 1rem !important;
+                right: 1rem !important;
+            }
+            
+            .humor-title {
+                font-size: 2rem !important;
+                margin-bottom: 1.5rem !important;
+            }
+            
+            .joke-box {
+                padding: 1.5rem !important;
+                margin-bottom: 1.5rem !important;
+            }
+            
+            .joke-text {
+                font-size: 1.3rem !important;
+                min-height: 3.5rem !important;
+            }
+            
+            .final-title {
+                font-size: 2.2rem !important;
+                margin-bottom: 1.5rem !important;
+            }
+            
+            .emotional-hint {
+                font-size: 1rem !important;
+                margin-top: 2rem !important;
+            }
+            
+            .story-scene {
+                padding: 2rem !important;
+                height: 85% !important;
+            }
+            
+            .nav-dots {
+                right: 1rem !important;
+                gap: 0.8rem !important;
+            }
+            
+            .nav-dot {
+                width: 10px !important;
+                height: 10px !important;
+            }
+        }
+
+        /* Для очень маленьких экранов */
+        @media (max-height: 600px) and (orientation: landscape) {
+            section {
+                padding: 1rem !important;
+            }
+            
+            .name-glow {
+                font-size: 2.5rem !important;
+            }
+            
+            .typing-text {
+                font-size: 1rem !important;
+                margin-bottom: 1rem !important;
+            }
+            
+            .story-scene {
+                padding: 1.5rem !important;
+                height: 90% !important;
+            }
+            
+            .final-title {
+                font-size: 1.8rem !important;
+            }
+        }
+
+        /* Общие стили */
+        section {
+            position: absolute;
+            top: 0;
+            left: 0;
             width: 100%;
             height: 100%;
-            overflow-y: auto;
-            overflow-x: hidden;
-            scroll-snap-type: y mandatory;
-            scroll-behavior: smooth;
-            position: relative;
-            -webkit-overflow-scrolling: touch;
-        }
-
-        .main-scroll-container::-webkit-scrollbar {
-            width: 8px;
-        }
-
-        .main-scroll-container::-webkit-scrollbar-track {
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 10px;
-        }
-
-        .main-scroll-container::-webkit-scrollbar-thumb {
-            background: linear-gradient(to bottom, var(--neon-pink), var(--neon-purple));
-            border-radius: 10px;
-        }
-
-        /* Секции вертикального скролла */
-        .scroll-section {
-            width: 100%;
-            height: 100vh;
-            min-height: 100vh;
-            scroll-snap-align: start;
-            position: relative;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            padding: 2rem;
+            padding: 3rem 2rem;
+            transition: transform 1.2s cubic-bezier(0.22, 1, 0.36, 1), opacity 1.2s ease;
+            opacity: 0;
+            pointer-events: none;
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        section.active {
+            opacity: 1;
+            pointer-events: all;
+            transform: translateX(0);
+        }
+
+        section.next {
+            transform: translateX(100px);
+        }
+
+        section.prev {
+            transform: translateX(-100px);
         }
 
         /* Canvas для эффектов */
@@ -249,38 +353,16 @@
             50% { transform: scale(1.05); opacity: 1; }
         }
 
-        /* Экран 2: История (горизонтальный скролл внутри секции) */
-        .story-section {
-            z-index: 2;
-            padding: 1rem;
-            height: 100vh;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .story-title {
-            text-align: center;
-            font-size: 2.5rem;
-            margin-bottom: 1.5rem;
-            background: linear-gradient(to right, var(--neon-pink), var(--neon-blue));
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            z-index: 3;
-            position: relative;
-            padding-top: 1rem;
-        }
-
+        /* Экран 2: История */
         .story-container {
             width: 100%;
-            flex: 1;
+            height: 100%;
             display: flex;
             align-items: center;
             overflow-x: auto;
             scroll-snap-type: x mandatory;
             scroll-behavior: smooth;
-            padding: 1rem 0.5rem;
+            padding: 0 1rem;
             z-index: 2;
             -webkit-overflow-scrolling: touch;
         }
@@ -300,15 +382,15 @@
         }
 
         .story-scene {
-            flex: 0 0 85%;
-            height: 75%;
+            flex: 0 0 90%;
+            height: 80%;
             margin-right: 1.5rem;
             scroll-snap-align: center;
             background: var(--glass);
             border-radius: 20px;
             border: 1px solid var(--glass-border);
             backdrop-filter: blur(20px);
-            padding: 1.8rem;
+            padding: 2rem;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -321,11 +403,16 @@
             margin-right: 0;
         }
 
+        .story-scene:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(157, 0, 255, 0.2);
+        }
+
         .scene-number {
             position: absolute;
-            top: 1rem;
-            right: 1rem;
-            font-size: 3rem;
+            top: 1.5rem;
+            right: 1.5rem;
+            font-size: 4rem;
             font-weight: 700;
             opacity: 0.1;
             color: var(--neon-blue);
@@ -333,8 +420,8 @@
         }
 
         .scene-title {
-            font-size: 1.5rem;
-            margin-bottom: 0.8rem;
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
             background: linear-gradient(to right, var(--neon-pink), var(--neon-blue));
             -webkit-background-clip: text;
             background-clip: text;
@@ -343,30 +430,30 @@
         }
 
         .scene-text {
-            font-size: 1rem;
-            line-height: 1.5;
-            margin-bottom: 1rem;
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
             opacity: 0.9;
         }
 
         .islamic-quote {
             font-style: italic;
-            margin-top: 1rem;
-            padding: 0.8rem;
+            margin-top: 1.5rem;
+            padding: 1rem;
             border-left: 3px solid var(--gold);
             background: rgba(255, 215, 0, 0.05);
-            border-radius: 0 8px 8px 0;
-            font-size: 0.9rem;
+            border-radius: 0 10px 10px 0;
+            font-size: 1rem;
             position: relative;
-            line-height: 1.4;
+            line-height: 1.5;
         }
 
         .islamic-quote:before {
             content: "❝";
             position: absolute;
-            top: -10px;
+            top: -12px;
             left: -8px;
-            font-size: 1.5rem;
+            font-size: 2rem;
             color: var(--gold);
             opacity: 0.5;
         }
@@ -374,13 +461,13 @@
         /* Экран 3: Юмор */
         .humor-screen {
             z-index: 2;
-            text-align: center;
         }
 
         .humor-container {
             max-width: 800px;
             width: 100%;
             text-align: center;
+            padding: 0 1rem;
         }
 
         .humor-title {
@@ -396,8 +483,8 @@
         .joke-box {
             background: var(--glass);
             border-radius: 15px;
-            padding: 1.5rem;
-            margin-bottom: 1.2rem;
+            padding: 1.8rem;
+            margin-bottom: 1.5rem;
             border: 1px solid var(--glass-border);
             backdrop-filter: blur(10px);
             cursor: pointer;
@@ -405,9 +492,6 @@
             position: relative;
             overflow: hidden;
             width: 100%;
-            max-width: 500px;
-            margin-left: auto;
-            margin-right: auto;
         }
 
         .joke-box:hover {
@@ -416,16 +500,16 @@
         }
 
         .joke-text {
-            font-size: 1.3rem;
-            margin-bottom: 0.8rem;
-            min-height: 3.5rem;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            min-height: 4rem;
             line-height: 1.4;
         }
 
         .joke-hint {
-            font-size: 0.85rem;
+            font-size: 0.9rem;
             opacity: 0.6;
-            margin-top: 0.3rem;
+            margin-top: 0.5rem;
         }
 
         .hidden-reaction {
@@ -433,7 +517,7 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            font-size: 2.5rem;
+            font-size: 3rem;
             opacity: 0;
             transition: opacity 0.3s ease;
             pointer-events: none;
@@ -451,7 +535,7 @@
         }
 
         .playful-hint {
-            margin-top: 1.5rem;
+            margin-top: 2rem;
             font-size: 1rem;
             opacity: 0.7;
             animation: colorShift 3s infinite;
@@ -467,13 +551,13 @@
         .final-screen {
             z-index: 2;
             text-align: center;
+            padding: 2rem;
         }
 
         .final-content {
             max-width: 900px;
             width: 100%;
             position: relative;
-            padding: 0 1rem;
         }
 
         .hearts-container {
@@ -488,7 +572,7 @@
 
         .heart {
             position: absolute;
-            font-size: 1.3rem;
+            font-size: 1.5rem;
             color: var(--neon-pink);
             opacity: 0;
             animation: heartFloat 8s linear infinite;
@@ -513,16 +597,16 @@
 
         .final-title {
             font-family: 'Playfair Display', serif;
-            font-size: 2.8rem;
+            font-size: 3rem;
             line-height: 1.3;
-            margin-bottom: 1.5rem;
+            margin-bottom: 2rem;
             position: relative;
             z-index: 3;
         }
 
         .final-line {
             display: block;
-            margin-bottom: 0.8rem;
+            margin-bottom: 1rem;
             opacity: 0;
             transform: translateY(30px);
             animation: fadeUp 1.5s forwards;
@@ -548,72 +632,22 @@
         }
 
         .emotional-hint {
-            margin-top: 2.5rem;
-            font-size: 1.1rem;
+            margin-top: 3rem;
+            font-size: 1.2rem;
             opacity: 0;
             animation: fadeIn 2s 5s forwards;
             position: relative;
             z-index: 3;
             line-height: 1.4;
+            padding: 0 1rem;
         }
 
         @keyframes fadeIn {
             to { opacity: 0.8; }
         }
 
-        /* Индикатор прокрутки */
-        .scroll-indicator {
-            position: fixed;
-            bottom: 1.5rem;
-            left: 50%;
-            transform: translateX(-50%);
-            z-index: 100;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            opacity: 0.7;
-            transition: opacity 0.3s;
-        }
-
-        .scroll-indicator.hidden {
-            opacity: 0;
-            pointer-events: none;
-        }
-
-        .scroll-text {
-            font-size: 0.8rem;
-            margin-bottom: 0.5rem;
-            color: var(--neon-blue);
-        }
-
-        .scroll-arrow {
-            width: 20px;
-            height: 30px;
-            border: 2px solid var(--neon-blue);
-            border-radius: 10px;
-            position: relative;
-            animation: bounce 2s infinite;
-        }
-
-        .scroll-arrow:before {
-            content: '';
-            position: absolute;
-            top: 5px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 4px;
-            height: 8px;
-            background: var(--neon-blue);
-            border-radius: 2px;
-        }
-
-        @keyframes bounce {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
-        }
-
-        /* Навигация по секциям */
-        .section-nav {
+        /* Навигация */
+        .nav-dots {
             position: fixed;
             right: 1rem;
             top: 50%;
@@ -631,7 +665,6 @@
             background-color: rgba(255, 255, 255, 0.3);
             cursor: pointer;
             transition: all 0.3s ease;
-            position: relative;
         }
 
         .nav-dot.active {
@@ -640,105 +673,54 @@
             transform: scale(1.3);
         }
 
-        .nav-dot:hover::after {
-            content: attr(data-title);
-            position: absolute;
-            right: 15px;
-            top: 50%;
-            transform: translateY(-50%);
-            background: rgba(0, 0, 0, 0.8);
-            color: white;
-            padding: 4px 8px;
-            border-radius: 4px;
-            font-size: 0.7rem;
-            white-space: nowrap;
-        }
-
-        /* Адаптивность */
-        @media (max-height: 600px) and (orientation: landscape) {
-            .scroll-section {
-                padding: 1rem;
-            }
-            
+        /* Улучшенная адаптивность для мобильных */
+        @media (max-width: 768px) and (orientation: landscape) {
             .name-glow {
-                font-size: 2.5rem;
+                font-size: 2.8rem;
             }
             
             .typing-text {
-                font-size: 1.1rem;
-                margin-bottom: 1rem;
-            }
-            
-            .story-title {
-                font-size: 1.8rem;
-                margin-bottom: 0.8rem;
+                font-size: 1.2rem;
             }
             
             .story-scene {
-                height: 80%;
-                padding: 1.2rem;
+                padding: 1.5rem;
+                height: 85%;
             }
             
             .scene-title {
-                font-size: 1.3rem;
+                font-size: 1.5rem;
             }
             
             .scene-text {
-                font-size: 0.9rem;
-            }
-            
-            .humor-title {
-                font-size: 1.8rem;
-                margin-bottom: 1rem;
-            }
-            
-            .joke-box {
-                padding: 1rem;
-                margin-bottom: 0.8rem;
-            }
-            
-            .joke-text {
-                font-size: 1.1rem;
-                min-height: 2.8rem;
+                font-size: 1rem;
             }
             
             .final-title {
+                font-size: 2.5rem;
+            }
+            
+            section {
+                padding: 1.5rem;
+            }
+        }
+
+        /* Для широких экранов */
+        @media (min-width: 1024px) and (orientation: landscape) {
+            .name-glow {
+                font-size: 4.5rem;
+            }
+            
+            .typing-text {
                 font-size: 2rem;
             }
             
-            .final-line {
-                margin-bottom: 0.5rem;
-            }
-        }
-
-        @media (max-width: 768px) and (orientation: landscape) {
             .story-scene {
-                flex: 0 0 80%;
-                height: 75%;
-            }
-            
-            .scroll-indicator {
-                bottom: 1rem;
-            }
-        }
-
-        @media (min-width: 1024px) and (orientation: landscape) {
-            .story-scene {
-                flex: 0 0 70%;
-                height: 80%;
-                padding: 2.5rem;
-            }
-            
-            .scene-title {
-                font-size: 1.8rem;
-            }
-            
-            .scene-text {
-                font-size: 1.1rem;
+                padding: 3rem;
             }
             
             .final-title {
-                font-size: 3.5rem;
+                font-size: 4rem;
             }
         }
     </style>
@@ -755,117 +737,107 @@
     <div class="website-container" id="websiteContainer">
         <canvas id="particles-canvas"></canvas>
         
-        <!-- Индикатор прокрутки -->
-        <div class="scroll-indicator" id="scrollIndicator">
-            <div class="scroll-text">Листай вниз</div>
-            <div class="scroll-arrow"></div>
-        </div>
-        
-        <!-- Навигация по секциям -->
-        <div class="section-nav">
-            <div class="nav-dot active" data-target="welcome" data-title="Приветствие"></div>
-            <div class="nav-dot" data-target="story" data-title="История"></div>
-            <div class="nav-dot" data-target="humor" data-title="Лёгкие моменты"></div>
-            <div class="nav-dot" data-target="final" data-title="Финал"></div>
+        <!-- Навигационные точки -->
+        <div class="nav-dots">
+            <div class="nav-dot active" data-target="welcome"></div>
+            <div class="nav-dot" data-target="story"></div>
+            <div class="nav-dot" data-target="humor"></div>
+            <div class="nav-dot" data-target="final"></div>
         </div>
 
-        <!-- Основной контейнер вертикального скролла -->
-        <div class="main-scroll-container" id="mainScroll">
-            <!-- Секция 1: Приветствие -->
-            <section class="scroll-section welcome-screen" id="welcomeSection">
-                <div class="welcome-content">
-                    <h1 class="name-glow">Диана<span class="sun-emoji">☀️</span></h1>
-                    <div class="typing-text" id="typingText"></div>
-                    <div class="hint">Листай вниз чтобы продолжить ↓</div>
+        <!-- Экран 1: Приветствие -->
+        <section class="welcome-screen active" id="welcomeScreen">
+            <div class="welcome-content">
+                <h1 class="name-glow">Диана<span class="sun-emoji">☀️</span></h1>
+                <div class="typing-text" id="typingText"></div>
+                <div class="hint">Коснись экрана или прокрути вправо →</div>
+            </div>
+        </section>
+
+        <!-- Экран 2: История -->
+        <section class="story-screen" id="storyScreen">
+            <div class="story-container" id="storyContainer">
+                <!-- Сцена 1 -->
+                <div class="story-scene">
+                    <div class="scene-number">01</div>
+                    <h2 class="scene-title">Первая встреча</h2>
+                    <p class="scene-text">Ты вошла в мою жизнь как солнечный луч. Помню твою улыбку, твой взгляд — в них я увидел что-то настоящее, чистое.</p>
+                    <div class="islamic-quote">"И среди Его знамений — то, что Он создал для вас из вас самих жён, чтобы вы находили в них успокоение, и установил между вами любовь и милосердие." (Ар-Рум 30:21)</div>
                 </div>
-            </section>
 
-            <!-- Секция 2: История -->
-            <section class="scroll-section story-section" id="storySection">
-                <h2 class="story-title">Наша история ✨</h2>
-                <div class="story-container" id="storyContainer">
-                    <!-- Сцена 1 -->
-                    <div class="story-scene">
-                        <div class="scene-number">01</div>
-                        <h3 class="scene-title">Первая встреча</h3>
-                        <p class="scene-text">Ты вошла в мою жизнь как солнечный луч. Помню твою улыбку, твой взгляд — в них я увидел что-то настоящее, чистое.</p>
-                        <div class="islamic-quote">"И среди Его знамений — то, что Он создал для вас из вас самих жён, чтобы вы находили в них успокоение, и установил между вами любовь и милосердие." (Ар-Рум 30:21)</div>
-                    </div>
-
-                    <!-- Сцена 2 -->
-                    <div class="story-scene">
-                        <div class="scene-number">02</div>
-                        <h3 class="scene-title">Терпение (Сабр)</h3>
-                        <p class="scene-text">Наш путь не всегда был лёгким. Были моменты испытаний, но именно они показали мне твою силу. Твоё терпение — как драгоценный жемчуг.</p>
-                        <div class="islamic-quote">"Воистину, Аллах с терпеливыми." (Аль-Бакара 2:153)</div>
-                    </div>
-
-                    <!-- Сцена 3 -->
-                    <div class="story-scene">
-                        <div class="scene-number">03</div>
-                        <h3 class="scene-title">Дуа и поддержка</h3>
-                        <p class="scene-text">Каждая твоя молитва за меня, каждое слово поддержки — это невидимая нить, которая связывает наши сердца.</p>
-                        <div class="islamic-quote">"Любовь — это аманат (доверие) от Аллаха. Берегите его, как бережёте свою веру."</div>
-                    </div>
-
-                    <!-- Сцена 4 -->
-                    <div class="story-scene">
-                        <div class="scene-number">04</div>
-                        <h3 class="scene-title">Рост вместе</h3>
-                        <p class="scene-text">С тобой я становлюсь лучше. Ты вдохновляешь меня быть достойным человеком, сильным верующим, ответственным мужчиной.</p>
-                        <div class="islamic-quote">"Верующие мужчины и женщины являются помощниками и друзьями друг другу." (Ат-Тауба 9:71)</div>
-                    </div>
-
-                    <!-- Сцена 5 -->
-                    <div class="story-scene">
-                        <div class="scene-number">05</div>
-                        <h3 class="scene-title">Благодарность (Шукр)</h3>
-                        <p class="scene-text">Каждый день с тобой — это благословение. Спасибо тебе за каждый момент, за каждую улыбку, за каждую совместную молитву.</p>
-                        <div class="islamic-quote">"Если вы будете благодарны, Я одарю вас ещё большим." (Ибрахим 14:7)</div>
-                    </div>
+                <!-- Сцена 2 -->
+                <div class="story-scene">
+                    <div class="scene-number">02</div>
+                    <h2 class="scene-title">Терпение (Сабр)</h2>
+                    <p class="scene-text">Наш путь не всегда был лёгким. Были моменты испытаний, но именно они показали мне твою силу. Твоё терпение — как драгоценный жемчуг.</p>
+                    <div class="islamic-quote">"Воистину, Аллах с терпеливыми." (Аль-Бакара 2:153)</div>
                 </div>
-            </section>
 
-            <!-- Секция 3: Юмор -->
-            <section class="scroll-section humor-screen" id="humorSection">
-                <div class="humor-container">
-                    <h2 class="humor-title">Лёгкие моменты 😊</h2>
-                    
-                    <div class="joke-box" id="joke1">
-                        <div class="joke-text">Что бы я выбрал: вечную жизнь в раю или ещё один разговор с тобой?</div>
-                        <div class="joke-hint">(Кликни для ответа)</div>
-                        <div class="hidden-reaction">🤔 Сложный выбор! 😄</div>
-                    </div>
-
-                    <div class="joke-box" id="joke2">
-                        <div class="joke-text">Если бы твои глаза были навигатором, куда бы они меня привели?</div>
-                        <div class="joke-hint">(Кликни для ответа)</div>
-                        <div class="hidden-reaction">Прямо в сердце! ❤️</div>
-                    </div>
-
-                    <div class="joke-box" id="joke3">
-                        <div class="joke-text">Ты знаешь, что у меня аллергия?</div>
-                        <div class="joke-hint">(Кликни для ответа)</div>
-                        <div class="hidden-reaction">На твоё отсутствие! 🤧😉</div>
-                    </div>
-
-                    <div class="playful-hint">P.S. Да, я знаю, что это смешно, но с тобой я могу быть таким 😄</div>
+                <!-- Сцена 3 -->
+                <div class="story-scene">
+                    <div class="scene-number">03</div>
+                    <h2 class="scene-title">Дуа и поддержка</h2>
+                    <p class="scene-text">Каждая твоя молитва за меня, каждое слово поддержки — это невидимая нить, которая связывает наши сердца.</p>
+                    <div class="islamic-quote">"Любовь — это аманат (доверие) от Аллаха. Берегите его, как бережёте свою веру."</div>
                 </div>
-            </section>
 
-            <!-- Секция 4: Финальная -->
-            <section class="scroll-section final-screen" id="finalSection">
-                <div class="hearts-container" id="heartsContainer"></div>
-                <div class="final-content">
-                    <h1 class="final-title">
-                        <span class="final-line final-glow">Ты — мой выбор.</span>
-                        <span class="final-line final-glow">Моя дуа.</span>
-                        <span class="final-line final-glow">Моё солнце. ☀️</span>
-                    </h1>
-                    <div class="emotional-hint">С Днём Влюблённых, моя дорогая. Ты — лучшее, что случилось со мной.</div>
+                <!-- Сцена 4 -->
+                <div class="story-scene">
+                    <div class="scene-number">04</div>
+                    <h2 class="scene-title">Рост вместе</h2>
+                    <p class="scene-text">С тобой я становлюсь лучше. Ты вдохновляешь меня быть достойным человеком, сильным верующим, ответственным мужчиной.</p>
+                    <div class="islamic-quote">"Верующие мужчины и женщины являются помощниками и друзьями друг другу." (Ат-Тауба 9:71)</div>
                 </div>
-            </section>
-        </div>
+
+                <!-- Сцена 5 -->
+                <div class="story-scene">
+                    <div class="scene-number">05</div>
+                    <h2 class="scene-title">Благодарность (Шукр)</h2>
+                    <p class="scene-text">Каждый день с тобой — это благословение. Спасибо тебе за каждый момент, за каждую улыбку, за каждую совместную молитву.</p>
+                    <div class="islamic-quote">"Если вы будете благодарны, Я одарю вас ещё большим." (Ибрахим 14:7)</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Экран 3: Юмор -->
+        <section class="humor-screen" id="humorScreen">
+            <div class="humor-container">
+                <h2 class="humor-title">Лёгкие моменты 😊</h2>
+                
+                <div class="joke-box" id="joke1">
+                    <div class="joke-text">Что бы я выбрал: вечную жизнь в раю или ещё один разговор с тобой?</div>
+                    <div class="joke-hint">(Кликни для ответа)</div>
+                    <div class="hidden-reaction">🤔 Сложный выбор! 😄</div>
+                </div>
+
+                <div class="joke-box" id="joke2">
+                    <div class="joke-text">Если бы твои глаза были навигатором, куда бы они меня привели?</div>
+                    <div class="joke-hint">(Кликни для ответа)</div>
+                    <div class="hidden-reaction">Прямо в сердце! ❤️</div>
+                </div>
+
+                <div class="joke-box" id="joke3">
+                    <div class="joke-text">Ты знаешь, что у меня аллергия?</div>
+                    <div class="joke-hint">(Кликни для ответа)</div>
+                    <div class="hidden-reaction">На твоё отсутствие! 🤧😉</div>
+                </div>
+
+                <div class="playful-hint">P.S. Да, я знаю, что это смешно, но с тобой я могу быть таким 😄</div>
+            </div>
+        </section>
+
+        <!-- Экран 4: Финальный -->
+        <section class="final-screen" id="finalScreen">
+            <div class="hearts-container" id="heartsContainer"></div>
+            <div class="final-content">
+                <h1 class="final-title">
+                    <span class="final-line final-glow">Ты — мой выбор.</span>
+                    <span class="final-line final-glow">Моя дуа.</span>
+                    <span class="final-line final-glow">Моё солнце. ☀️</span>
+                </h1>
+                <div class="emotional-hint">С Днём Влюблённых, моя дорогая. Ты — лучшее, что случилось со мной.</div>
+            </div>
+        </section>
     </div>
 
     <script>
@@ -894,7 +866,7 @@
             setTimeout(checkOrientation, 300);
         });
         
-        // Инициализация сайта
+        // Инициализация сайта после проверки ориентации
         function initWebsite() {
             // Эффекты частиц на Canvas
             const canvas = document.getElementById('particles-canvas');
@@ -976,94 +948,141 @@
                 requestAnimationFrame(animateParticles);
             }
             
-            // Вертикальная навигация
-            const mainScroll = document.getElementById('mainScroll');
-            const sections = document.querySelectorAll('.scroll-section');
+            // Навигация между экранами
+            const sections = document.querySelectorAll('section');
             const navDots = document.querySelectorAll('.nav-dot');
-            const scrollIndicator = document.getElementById('scrollIndicator');
             let currentSection = 0;
-            let isScrolling = false;
+            let isTransitioning = false; // Флаг для предотвращения множественных переходов
+            let touchStartX = 0;
+            let touchEndX = 0;
             
-            // Определяем текущую секцию при скролле
-            function updateActiveSection() {
-                const scrollTop = mainScroll.scrollTop;
-                const windowHeight = window.innerHeight;
+            function showSection(index) {
+                if (isTransitioning) return;
+                if (index < 0 || index >= sections.length) return;
                 
-                for (let i = 0; i < sections.length; i++) {
-                    const section = sections[i];
-                    const sectionTop = section.offsetTop;
-                    const sectionHeight = section.offsetHeight;
+                isTransitioning = true;
+                
+                sections.forEach((section, i) => {
+                    section.classList.remove('active', 'next', 'prev');
                     
-                    if (scrollTop >= sectionTop - windowHeight/3 && 
-                        scrollTop < sectionTop + sectionHeight - windowHeight/3) {
-                        
-                        if (currentSection !== i) {
-                            currentSection = i;
-                            updateNavigation();
-                            
-                            // Запускаем эффекты для текущей секции
-                            switch(i) {
-                                case 0: // Приветствие
-                                    startTypingAnimation();
-                                    break;
-                                case 1: // История
-                                    initStoryScroll();
-                                    break;
-                                case 2: // Юмор
-                                    initJokes();
-                                    break;
-                                case 3: // Финальный
-                                    startFinalAnimation();
-                                    break;
-                            }
-                        }
-                        break;
+                    if (i === index) {
+                        section.classList.add('active');
+                    } else if (i > index) {
+                        section.classList.add('next');
+                    } else {
+                        section.classList.add('prev');
                     }
+                });
+                
+                navDots.forEach((dot, i) => {
+                    dot.classList.toggle('active', i === index);
+                });
+                
+                currentSection = index;
+                
+                // Запускаем специальные эффекты для каждого экрана
+                switch(index) {
+                    case 0: // Приветствие
+                        startTypingAnimation();
+                        break;
+                    case 1: // История
+                        initStoryScroll();
+                        break;
+                    case 2: // Юмор
+                        initJokes();
+                        break;
+                    case 3: // Финальный
+                        startFinalAnimation();
+                        break;
                 }
                 
-                // Прячем индикатор на последней секции
-                if (currentSection === sections.length - 1) {
-                    scrollIndicator.classList.add('hidden');
-                } else {
-                    scrollIndicator.classList.remove('hidden');
-                }
+                // Сбрасываем флаг после завершения анимации
+                setTimeout(() => {
+                    isTransitioning = false;
+                }, 1200); // Время должно совпадать с duration перехода в CSS
             }
             
-            // Обновляем навигационные точки
-            function updateNavigation() {
-                navDots.forEach((dot, index) => {
-                    dot.classList.toggle('active', index === currentSection);
-                });
-            }
-            
-            // Прокрутка к секции при клике на точку
+            // Навигация по точкам
             navDots.forEach((dot, index) => {
                 dot.addEventListener('click', () => {
-                    scrollToSection(index);
+                    if (!isTransitioning) {
+                        showSection(index);
+                    }
                 });
             });
             
-            function scrollToSection(index) {
-                if (index >= 0 && index < sections.length) {
-                    sections[index].scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                    currentSection = index;
-                    updateNavigation();
-                }
-            }
+            // Обработка свайпов
+            document.addEventListener('touchstart', (e) => {
+                touchStartX = e.touches[0].clientX;
+            }, { passive: true });
             
-            // Обработка скролла
-            mainScroll.addEventListener('scroll', () => {
-                if (!isScrolling) {
-                    window.requestAnimationFrame(() => {
-                        updateActiveSection();
-                        isScrolling = false;
-                    });
-                    isScrolling = true;
+            document.addEventListener('touchmove', (e) => {
+                if (isTransitioning) {
+                    e.preventDefault();
+                }
+            }, { passive: false });
+            
+            document.addEventListener('touchend', (e) => {
+                if (isTransitioning) return;
+                
+                touchEndX = e.changedTouches[0].clientX;
+                const swipeThreshold = 50;
+                const diffX = touchStartX - touchEndX;
+                
+                // Определяем направление свайпа
+                if (Math.abs(diffX) > swipeThreshold) {
+                    if (diffX > 0 && currentSection < sections.length - 1) {
+                        // Свайп влево -> следующий слайд
+                        showSection(currentSection + 1);
+                    } else if (diffX < 0 && currentSection > 0) {
+                        // Свайп вправо -> предыдущий слайд
+                        showSection(currentSection - 1);
+                    }
                 }
             });
+            
+            // Обработка кликов для перехода
+            document.addEventListener('click', (e) => {
+                if (isTransitioning) return;
+                
+                // Если клик не по интерактивным элементам
+                if (!e.target.closest('.joke-box') && 
+                    !e.target.closest('.nav-dot') && 
+                    !e.target.closest('.story-container') &&
+                    !e.target.closest('.hint') &&
+                    !e.target.closest('.story-scene')) {
+                    
+                    // Определяем, в какой части экрана был клик для определения направления
+                    const clickX = e.clientX || e.touches[0].clientX;
+                    const screenWidth = window.innerWidth;
+                    
+                    // Если клик в правой части экрана - вперед
+                    if (clickX > screenWidth * 0.6 && currentSection < sections.length - 1) {
+                        showSection(currentSection + 1);
+                    }
+                    // Если клик в левой части экрана - назад
+                    else if (clickX < screenWidth * 0.4 && currentSection > 0) {
+                        showSection(currentSection - 1);
+                    }
+                    // Если клик в центре - вперед (как было изначально)
+                    else if (currentSection < sections.length - 1) {
+                        showSection(currentSection + 1);
+                    }
+                }
+            });
+            
+            // Запрещаем прокрутку при касании на активных элементах
+            document.addEventListener('touchmove', function(e) {
+                // Разрешаем скролл только в контейнере историй
+                if (e.target.closest('.story-container')) {
+                    return;
+                }
+                
+                // Если происходит переход, блокируем скролл
+                if (isTransitioning) {
+                    e.preventDefault();
+                }
+            }, { passive: false });
             
             // Анимация печатающегося текста
             const typingText = document.getElementById('typingText');
@@ -1101,11 +1120,11 @@
                 
                 if (!isDeleting && charIndex === currentMessage.length + 1) {
                     isDeleting = true;
-                    typingSpeed = 1500;
+                    typingSpeed = 1500; // Пауза перед удалением
                 } else if (isDeleting && charIndex === -1) {
                     isDeleting = false;
                     messageIndex = (messageIndex + 1) % messages.length;
-                    typingSpeed = 500;
+                    typingSpeed = 500; // Пауза перед новым сообщением
                 }
                 
                 typingAnimationId = setTimeout(startTypingAnimation, typingSpeed);
@@ -1137,17 +1156,6 @@
                         });
                     });
                 }
-                
-                // Добавляем индикацию скролла для истории
-                storyContainer.addEventListener('scroll', () => {
-                    const scrollLeft = storyContainer.scrollLeft;
-                    const maxScroll = storyContainer.scrollWidth - storyContainer.clientWidth;
-                    
-                    // Если достигли конца горизонтального скролла
-                    if (scrollLeft >= maxScroll - 10) {
-                        // Можно добавить подсказку для вертикального скролла
-                    }
-                });
             }
             
             // Интерактивные шутки
@@ -1215,27 +1223,12 @@
             
             // Запускаем начальную анимацию
             startTypingAnimation();
-            updateActiveSection();
             
-            // Добавляем свайп для горизонтального скролла в истории
-            let touchStartX = 0;
-            const storyContainer = document.getElementById('storyContainer');
-            
-            storyContainer.addEventListener('touchstart', (e) => {
-                touchStartX = e.touches[0].clientX;
-            }, { passive: true });
-            
-            storyContainer.addEventListener('touchmove', (e) => {
-                // Предотвращаем вертикальный скролл при горизонтальном свайпе
-                if (Math.abs(e.touches[0].clientX - touchStartX) > 10) {
-                    e.stopPropagation();
-                }
-            }, { passive: true });
-            
-            // Авто-скролл подсказки
+            // Авто-прокрутка подсказки на первом экране
             setTimeout(() => {
                 if (currentSection === 0) {
-                    scrollIndicator.style.animation = 'bounce 2s infinite';
+                    const hint = document.querySelector('.hint');
+                    hint.style.animation = 'pulse 2s infinite';
                 }
             }, 1000);
         }
