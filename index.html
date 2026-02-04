@@ -24,6 +24,7 @@
             padding: 0;
             box-sizing: border-box;
             user-select: none;
+            -webkit-tap-highlight-color: transparent;
         }
 
         html, body {
@@ -34,6 +35,7 @@
             background-color: var(--deep-purple);
             color: white;
             position: relative;
+            font-size: 16px;
         }
 
         body {
@@ -67,27 +69,29 @@
         }
 
         .orientation-warning i {
-            font-size: 4rem;
-            margin-bottom: 2rem;
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
             color: var(--neon-pink);
             animation: rotate 3s infinite ease-in-out;
         }
 
         .orientation-warning h2 {
-            font-size: 2.5rem;
+            font-size: 1.8rem;
             margin-bottom: 1rem;
             background: linear-gradient(to right, var(--neon-pink), var(--neon-blue));
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
             font-weight: 700;
+            line-height: 1.3;
         }
 
         .orientation-warning p {
-            font-size: 1.2rem;
+            font-size: 1rem;
             opacity: 0.8;
-            max-width: 500px;
-            line-height: 1.6;
+            max-width: 300px;
+            line-height: 1.5;
+            padding: 0 1rem;
         }
 
         @keyframes rotate {
@@ -108,6 +112,117 @@
             display: block;
         }
 
+        /* Адаптивные стили для мобильных */
+        @media (max-height: 700px) and (orientation: landscape) {
+            section {
+                padding: 1.5rem !important;
+            }
+            
+            .name-glow {
+                font-size: 3rem !important;
+            }
+            
+            .typing-text {
+                font-size: 1.2rem !important;
+                margin-bottom: 1.5rem !important;
+                min-height: 2.5rem !important;
+            }
+            
+            .hint {
+                font-size: 0.9rem !important;
+                margin-top: 1.5rem !important;
+                padding: 0.8rem 1.5rem !important;
+            }
+            
+            .scene-title {
+                font-size: 1.5rem !important;
+                margin-bottom: 1rem !important;
+            }
+            
+            .scene-text {
+                font-size: 1rem !important;
+                line-height: 1.5 !important;
+                margin-bottom: 1.5rem !important;
+            }
+            
+            .islamic-quote {
+                font-size: 0.9rem !important;
+                padding: 1rem !important;
+                margin-top: 1rem !important;
+            }
+            
+            .scene-number {
+                font-size: 3rem !important;
+                top: 1rem !important;
+                right: 1rem !important;
+            }
+            
+            .humor-title {
+                font-size: 2rem !important;
+                margin-bottom: 1.5rem !important;
+            }
+            
+            .joke-box {
+                padding: 1.5rem !important;
+                margin-bottom: 1.5rem !important;
+            }
+            
+            .joke-text {
+                font-size: 1.3rem !important;
+                min-height: 3.5rem !important;
+            }
+            
+            .final-title {
+                font-size: 2.2rem !important;
+                margin-bottom: 1.5rem !important;
+            }
+            
+            .emotional-hint {
+                font-size: 1rem !important;
+                margin-top: 2rem !important;
+            }
+            
+            .story-scene {
+                padding: 2rem !important;
+                height: 85% !important;
+            }
+            
+            .nav-dots {
+                right: 1rem !important;
+                gap: 0.8rem !important;
+            }
+            
+            .nav-dot {
+                width: 10px !important;
+                height: 10px !important;
+            }
+        }
+
+        /* Для очень маленьких экранов */
+        @media (max-height: 600px) and (orientation: landscape) {
+            section {
+                padding: 1rem !important;
+            }
+            
+            .name-glow {
+                font-size: 2.5rem !important;
+            }
+            
+            .typing-text {
+                font-size: 1rem !important;
+                margin-bottom: 1rem !important;
+            }
+            
+            .story-scene {
+                padding: 1.5rem !important;
+                height: 90% !important;
+            }
+            
+            .final-title {
+                font-size: 1.8rem !important;
+            }
+        }
+
         /* Общие стили */
         section {
             position: absolute;
@@ -119,10 +234,12 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            padding: 4rem;
+            padding: 3rem 2rem;
             transition: transform 1.2s cubic-bezier(0.22, 1, 0.36, 1), opacity 1.2s ease;
             opacity: 0;
             pointer-events: none;
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
         }
 
         section.active {
@@ -158,13 +275,15 @@
 
         .welcome-content {
             max-width: 800px;
+            width: 100%;
             position: relative;
             z-index: 3;
+            padding: 0 1rem;
         }
 
         .name-glow {
             font-family: 'Playfair Display', serif;
-            font-size: 5rem;
+            font-size: 3.5rem;
             font-weight: 600;
             margin-bottom: 1rem;
             background: linear-gradient(to right, #ffd700, #ff8a00, #ff0080);
@@ -173,6 +292,7 @@
             color: transparent;
             animation: glow 3s infinite alternate;
             position: relative;
+            line-height: 1.2;
         }
 
         @keyframes glow {
@@ -187,22 +307,23 @@
 
         @keyframes float {
             0%, 100% { transform: translateY(0) rotate(0deg); }
-            50% { transform: translateY(-20px) rotate(10deg); }
+            50% { transform: translateY(-15px) rotate(10deg); }
         }
 
         .typing-text {
-            font-size: 2rem;
-            margin-bottom: 3rem;
-            min-height: 3rem;
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            min-height: 2.5rem;
             position: relative;
+            line-height: 1.4;
         }
 
         .typing-cursor {
             display: inline-block;
-            width: 3px;
-            height: 2.5rem;
+            width: 2px;
+            height: 1.8rem;
             background-color: var(--neon-blue);
-            margin-left: 5px;
+            margin-left: 3px;
             animation: blink 1s infinite;
             vertical-align: middle;
         }
@@ -213,15 +334,18 @@
         }
 
         .hint {
-            font-size: 1.2rem;
+            font-size: 1rem;
             opacity: 0.7;
-            margin-top: 3rem;
-            padding: 1rem 2rem;
+            margin-top: 2rem;
+            padding: 0.8rem 1.5rem;
             border-radius: 50px;
             background: var(--glass);
             border: 1px solid var(--glass-border);
             backdrop-filter: blur(10px);
             animation: pulse 2s infinite;
+            max-width: 300px;
+            margin-left: auto;
+            margin-right: auto;
         }
 
         @keyframes pulse {
@@ -238,12 +362,13 @@
             overflow-x: auto;
             scroll-snap-type: x mandatory;
             scroll-behavior: smooth;
-            padding: 0 2rem;
+            padding: 0 1rem;
             z-index: 2;
+            -webkit-overflow-scrolling: touch;
         }
 
         .story-container::-webkit-scrollbar {
-            height: 8px;
+            height: 6px;
         }
 
         .story-container::-webkit-scrollbar-track {
@@ -259,13 +384,13 @@
         .story-scene {
             flex: 0 0 90%;
             height: 80%;
-            margin-right: 3rem;
+            margin-right: 1.5rem;
             scroll-snap-align: center;
             background: var(--glass);
-            border-radius: 30px;
+            border-radius: 20px;
             border: 1px solid var(--glass-border);
             backdrop-filter: blur(20px);
-            padding: 3rem;
+            padding: 2rem;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -274,54 +399,61 @@
             transition: transform 0.5s ease, box-shadow 0.5s ease;
         }
 
+        .story-scene:last-child {
+            margin-right: 0;
+        }
+
         .story-scene:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(157, 0, 255, 0.2);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(157, 0, 255, 0.2);
         }
 
         .scene-number {
             position: absolute;
-            top: 2rem;
-            right: 2rem;
-            font-size: 5rem;
+            top: 1.5rem;
+            right: 1.5rem;
+            font-size: 4rem;
             font-weight: 700;
             opacity: 0.1;
             color: var(--neon-blue);
+            line-height: 1;
         }
 
         .scene-title {
-            font-size: 2.5rem;
-            margin-bottom: 1.5rem;
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
             background: linear-gradient(to right, var(--neon-pink), var(--neon-blue));
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
+            line-height: 1.3;
         }
 
         .scene-text {
-            font-size: 1.4rem;
-            line-height: 1.8;
-            margin-bottom: 2rem;
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
             opacity: 0.9;
         }
 
         .islamic-quote {
             font-style: italic;
-            margin-top: 2rem;
-            padding: 1.5rem;
+            margin-top: 1.5rem;
+            padding: 1rem;
             border-left: 3px solid var(--gold);
             background: rgba(255, 215, 0, 0.05);
             border-radius: 0 10px 10px 0;
-            font-size: 1.2rem;
+            font-size: 1rem;
             position: relative;
+            line-height: 1.5;
         }
 
         .islamic-quote:before {
             content: "❝";
             position: absolute;
-            top: -15px;
-            left: -10px;
-            font-size: 3rem;
+            top: -12px;
+            left: -8px;
+            font-size: 2rem;
             color: var(--gold);
             opacity: 0.5;
         }
@@ -333,46 +465,51 @@
 
         .humor-container {
             max-width: 800px;
+            width: 100%;
             text-align: center;
+            padding: 0 1rem;
         }
 
         .humor-title {
-            font-size: 3rem;
-            margin-bottom: 3rem;
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
             background: linear-gradient(to right, #ff00ff, #00ffff);
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
+            line-height: 1.2;
         }
 
         .joke-box {
             background: var(--glass);
-            border-radius: 20px;
-            padding: 2.5rem;
-            margin-bottom: 2rem;
+            border-radius: 15px;
+            padding: 1.8rem;
+            margin-bottom: 1.5rem;
             border: 1px solid var(--glass-border);
             backdrop-filter: blur(10px);
             cursor: pointer;
             transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
+            width: 100%;
         }
 
         .joke-box:hover {
-            transform: scale(1.03);
-            box-shadow: 0 15px 30px rgba(255, 0, 255, 0.2);
+            transform: scale(1.02);
+            box-shadow: 0 10px 20px rgba(255, 0, 255, 0.2);
         }
 
         .joke-text {
-            font-size: 1.8rem;
-            margin-bottom: 1.5rem;
-            min-height: 5rem;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            min-height: 4rem;
+            line-height: 1.4;
         }
 
         .joke-hint {
-            font-size: 1rem;
+            font-size: 0.9rem;
             opacity: 0.6;
-            margin-top: 1rem;
+            margin-top: 0.5rem;
         }
 
         .hidden-reaction {
@@ -380,7 +517,7 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            font-size: 4rem;
+            font-size: 3rem;
             opacity: 0;
             transition: opacity 0.3s ease;
             pointer-events: none;
@@ -398,10 +535,11 @@
         }
 
         .playful-hint {
-            margin-top: 3rem;
-            font-size: 1.2rem;
+            margin-top: 2rem;
+            font-size: 1rem;
             opacity: 0.7;
             animation: colorShift 3s infinite;
+            line-height: 1.4;
         }
 
         @keyframes colorShift {
@@ -413,10 +551,12 @@
         .final-screen {
             z-index: 2;
             text-align: center;
+            padding: 2rem;
         }
 
         .final-content {
             max-width: 900px;
+            width: 100%;
             position: relative;
         }
 
@@ -432,7 +572,7 @@
 
         .heart {
             position: absolute;
-            font-size: 2rem;
+            font-size: 1.5rem;
             color: var(--neon-pink);
             opacity: 0;
             animation: heartFloat 8s linear infinite;
@@ -457,16 +597,16 @@
 
         .final-title {
             font-family: 'Playfair Display', serif;
-            font-size: 4rem;
+            font-size: 3rem;
             line-height: 1.3;
-            margin-bottom: 3rem;
+            margin-bottom: 2rem;
             position: relative;
             z-index: 3;
         }
 
         .final-line {
             display: block;
-            margin-bottom: 1.5rem;
+            margin-bottom: 1rem;
             opacity: 0;
             transform: translateY(30px);
             animation: fadeUp 1.5s forwards;
@@ -488,16 +628,18 @@
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
-            text-shadow: 0 0 30px rgba(255, 0, 128, 0.3);
+            text-shadow: 0 0 20px rgba(255, 0, 128, 0.3);
         }
 
         .emotional-hint {
-            margin-top: 5rem;
-            font-size: 1.5rem;
+            margin-top: 3rem;
+            font-size: 1.2rem;
             opacity: 0;
             animation: fadeIn 2s 5s forwards;
             position: relative;
             z-index: 3;
+            line-height: 1.4;
+            padding: 0 1rem;
         }
 
         @keyframes fadeIn {
@@ -507,18 +649,18 @@
         /* Навигация */
         .nav-dots {
             position: fixed;
-            right: 2rem;
+            right: 1rem;
             top: 50%;
             transform: translateY(-50%);
             display: flex;
             flex-direction: column;
-            gap: 1rem;
+            gap: 0.8rem;
             z-index: 10;
         }
 
         .nav-dot {
-            width: 12px;
-            height: 12px;
+            width: 10px;
+            height: 10px;
             border-radius: 50%;
             background-color: rgba(255, 255, 255, 0.3);
             cursor: pointer;
@@ -527,21 +669,59 @@
 
         .nav-dot.active {
             background-color: var(--neon-pink);
-            box-shadow: 0 0 15px var(--neon-pink);
-            transform: scale(1.5);
+            box-shadow: 0 0 10px var(--neon-pink);
+            transform: scale(1.3);
         }
 
-        /* Адаптивность */
-        @media (max-height: 700px) {
-            .name-glow { font-size: 4rem; }
-            .typing-text { font-size: 1.5rem; }
-            .scene-title { font-size: 2rem; }
-            .scene-text { font-size: 1.2rem; }
-            .final-title { font-size: 3rem; }
+        /* Улучшенная адаптивность для мобильных */
+        @media (max-width: 768px) and (orientation: landscape) {
+            .name-glow {
+                font-size: 2.8rem;
+            }
+            
+            .typing-text {
+                font-size: 1.2rem;
+            }
+            
+            .story-scene {
+                padding: 1.5rem;
+                height: 85%;
+            }
+            
+            .scene-title {
+                font-size: 1.5rem;
+            }
+            
+            .scene-text {
+                font-size: 1rem;
+            }
+            
+            .final-title {
+                font-size: 2.5rem;
+            }
+            
+            section {
+                padding: 1.5rem;
+            }
         }
 
-        @media (max-width: 1200px) {
-            .story-scene { flex: 0 0 85%; }
+        /* Для широких экранов */
+        @media (min-width: 1024px) and (orientation: landscape) {
+            .name-glow {
+                font-size: 4.5rem;
+            }
+            
+            .typing-text {
+                font-size: 2rem;
+            }
+            
+            .story-scene {
+                padding: 3rem;
+            }
+            
+            .final-title {
+                font-size: 4rem;
+            }
         }
     </style>
 </head>
@@ -581,7 +761,7 @@
                 <div class="story-scene">
                     <div class="scene-number">01</div>
                     <h2 class="scene-title">Первая встреча</h2>
-                    <p class="scene-text">Ты вошла в мою жизнь как солнечный луч в пасмурный день. Помню твою улыбку, твой взгляд — в них я увидел что-то настоящее, чистое.</p>
+                    <p class="scene-text">Ты вошла в мою жизнь как солнечный луч. Помню твою улыбку, твой взгляд — в них я увидел что-то настоящее, чистое.</p>
                     <div class="islamic-quote">"И среди Его знамений — то, что Он создал для вас из вас самих жён, чтобы вы находили в них успокоение, и установил между вами любовь и милосердие." (Ар-Рум 30:21)</div>
                 </div>
 
@@ -589,7 +769,7 @@
                 <div class="story-scene">
                     <div class="scene-number">02</div>
                     <h2 class="scene-title">Терпение (Сабр)</h2>
-                    <p class="scene-text">Наш путь не всегда был лёгким. Были моменты испытаний, но именно они показали мне твою силу. Твоё терпение — как драгоценный жемчуг, который растёт в глубинах трудностей.</p>
+                    <p class="scene-text">Наш путь не всегда был лёгким. Были моменты испытаний, но именно они показали мне твою силу. Твоё терпение — как драгоценный жемчуг.</p>
                     <div class="islamic-quote">"Воистину, Аллах с терпеливыми." (Аль-Бакара 2:153)</div>
                 </div>
 
@@ -597,7 +777,7 @@
                 <div class="story-scene">
                     <div class="scene-number">03</div>
                     <h2 class="scene-title">Дуа и поддержка</h2>
-                    <p class="scene-text">Каждая твоя молитва за меня, каждое слово поддержки — это невидимая нить, которая связывает наши сердца. Ты не просто рядом, ты — мой союзник перед Всевышним.</p>
+                    <p class="scene-text">Каждая твоя молитва за меня, каждое слово поддержки — это невидимая нить, которая связывает наши сердца.</p>
                     <div class="islamic-quote">"Любовь — это аманат (доверие) от Аллаха. Берегите его, как бережёте свою веру."</div>
                 </div>
 
@@ -605,7 +785,7 @@
                 <div class="story-scene">
                     <div class="scene-number">04</div>
                     <h2 class="scene-title">Рост вместе</h2>
-                    <p class="scene-text">С тобой я становлюсь лучше. Ты вдохновляешь меня быть достойным человеком, сильным верующим, ответственным мужчиной. Мы растем вместе, и это прекрасно.</p>
+                    <p class="scene-text">С тобой я становлюсь лучше. Ты вдохновляешь меня быть достойным человеком, сильным верующим, ответственным мужчиной.</p>
                     <div class="islamic-quote">"Верующие мужчины и женщины являются помощниками и друзьями друг другу." (Ат-Тауба 9:71)</div>
                 </div>
 
@@ -613,7 +793,7 @@
                 <div class="story-scene">
                     <div class="scene-number">05</div>
                     <h2 class="scene-title">Благодарность (Шукр)</h2>
-                    <p class="scene-text">Каждый день с тобой — это благословение. Спасибо тебе за каждый момент, за каждую улыбку, за каждую совместную молитву. Ты — мой шукр Аллаху.</p>
+                    <p class="scene-text">Каждый день с тобой — это благословение. Спасибо тебе за каждый момент, за каждую улыбку, за каждую совместную молитву.</p>
                     <div class="islamic-quote">"Если вы будете благодарны, Я одарю вас ещё большим." (Ибрахим 14:7)</div>
                 </div>
             </div>
@@ -627,7 +807,7 @@
                 <div class="joke-box" id="joke1">
                     <div class="joke-text">Что бы я выбрал: вечную жизнь в раю или ещё один разговор с тобой?</div>
                     <div class="joke-hint">(Кликни для ответа)</div>
-                    <div class="hidden-reaction">🤔 Ну... это сложный выбор! 😄</div>
+                    <div class="hidden-reaction">🤔 Сложный выбор! 😄</div>
                 </div>
 
                 <div class="joke-box" id="joke2">
@@ -672,13 +852,19 @@
             } else {
                 orientationWarning.classList.add('hidden');
                 websiteContainer.classList.add('active');
-                initWebsite();
+                if (!window.websiteInitialized) {
+                    initWebsite();
+                    window.websiteInitialized = true;
+                }
             }
         }
         
+        // Проверяем при загрузке и изменении размера
         window.addEventListener('load', checkOrientation);
         window.addEventListener('resize', checkOrientation);
-        window.addEventListener('orientationchange', checkOrientation);
+        window.addEventListener('orientationchange', function() {
+            setTimeout(checkOrientation, 300);
+        });
         
         // Инициализация сайта после проверки ориентации
         function initWebsite() {
@@ -696,10 +882,10 @@
                 constructor() {
                     this.x = Math.random() * canvas.width;
                     this.y = Math.random() * canvas.height;
-                    this.size = Math.random() * 3 + 1;
-                    this.speedX = Math.random() * 2 - 1;
-                    this.speedY = Math.random() * 2 - 1;
-                    this.color = Math.random() > 0.5 ? 'rgba(255, 0, 255, 0.8)' : 'rgba(0, 255, 255, 0.8)';
+                    this.size = Math.random() * 2 + 0.5;
+                    this.speedX = Math.random() * 1.5 - 0.75;
+                    this.speedY = Math.random() * 1.5 - 0.75;
+                    this.color = Math.random() > 0.5 ? 'rgba(255, 0, 255, 0.6)' : 'rgba(0, 255, 255, 0.6)';
                     this.glow = Math.random() > 0.7;
                 }
                 
@@ -720,10 +906,10 @@
                     ctx.fill();
                     
                     if (this.glow) {
-                        ctx.shadowBlur = 15;
+                        ctx.shadowBlur = 10;
                         ctx.shadowColor = this.color;
                         ctx.beginPath();
-                        ctx.arc(this.x, this.y, this.size * 2, 0, Math.PI * 2);
+                        ctx.arc(this.x, this.y, this.size * 1.5, 0, Math.PI * 2);
                         ctx.fill();
                         ctx.shadowBlur = 0;
                     }
@@ -732,7 +918,8 @@
             
             function initParticles() {
                 particles = [];
-                const particleCount = Math.min(150, Math.floor((canvas.width * canvas.height) / 10000));
+                // Меньше частиц для мобильных устройств
+                const particleCount = window.innerWidth < 768 ? 80 : 120;
                 
                 for (let i = 0; i < particleCount; i++) {
                     particles.push(new Particle());
@@ -812,25 +999,35 @@
             // Навигация скроллом/свайпом
             let touchStartX = 0;
             let touchEndX = 0;
+            let isScrolling = false;
             
-            document.addEventListener('wheel', (e) => {
-                if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) {
+            // Отключаем вертикальный скролл на корневом элементе
+            document.addEventListener('touchmove', function(e) {
+                if (e.target.closest('.story-container')) {
+                    return; // Разрешаем скролл в контейнере историй
+                }
+                
+                // Блокируем вертикальный скролл для смены секций
+                if (Math.abs(e.touches[0].clientX - touchStartX) > 10) {
                     e.preventDefault();
-                    
-                    if (e.deltaX > 50 && currentSection < sections.length - 1) {
-                        showSection(currentSection + 1);
-                    } else if (e.deltaX < -50 && currentSection > 0) {
-                        showSection(currentSection - 1);
-                    }
                 }
             }, { passive: false });
             
             document.addEventListener('touchstart', (e) => {
-                touchStartX = e.changedTouches[0].screenX;
+                touchStartX = e.touches[0].clientX;
+                isScrolling = false;
+            });
+            
+            document.addEventListener('touchmove', (e) => {
+                if (Math.abs(e.touches[0].clientX - touchStartX) > 20) {
+                    isScrolling = true;
+                }
             });
             
             document.addEventListener('touchend', (e) => {
-                touchEndX = e.changedTouches[0].screenX;
+                if (!isScrolling) return;
+                
+                touchEndX = e.changedTouches[0].clientX;
                 handleSwipe();
             });
             
@@ -848,7 +1045,11 @@
             
             // Клик для перехода на следующий экран
             document.addEventListener('click', (e) => {
-                if (!e.target.closest('.joke-box') && !e.target.closest('.nav-dot') && !e.target.closest('.story-container')) {
+                // Если клик не по интерактивным элементам
+                if (!e.target.closest('.joke-box') && 
+                    !e.target.closest('.nav-dot') && 
+                    !e.target.closest('.story-container') &&
+                    !e.target.closest('.hint')) {
                     if (currentSection < sections.length - 1) {
                         showSection(currentSection + 1);
                     }
@@ -899,10 +1100,10 @@
             function initStoryScroll() {
                 const storyContainer = document.getElementById('storyContainer');
                 
-                // Параллакс-эффект для сцен
-                document.querySelectorAll('.story-scene').forEach(scene => {
-                    scene.addEventListener('mousemove', (e) => {
-                        if (window.innerWidth > 768) {
+                // Параллакс-эффект для сцен (только на десктопе)
+                if (window.innerWidth > 768) {
+                    document.querySelectorAll('.story-scene').forEach(scene => {
+                        scene.addEventListener('mousemove', (e) => {
                             const rect = scene.getBoundingClientRect();
                             const x = e.clientX - rect.left;
                             const y = e.clientY - rect.top;
@@ -910,23 +1111,28 @@
                             const centerX = rect.width / 2;
                             const centerY = rect.height / 2;
                             
-                            const moveX = (x - centerX) / 25;
-                            const moveY = (y - centerY) / 25;
+                            const moveX = (x - centerX) / 30;
+                            const moveY = (y - centerY) / 30;
                             
-                            scene.style.transform = `perspective(1000px) rotateY(${moveX}deg) rotateX(${-moveY}deg) translateY(-10px)`;
-                        }
+                            scene.style.transform = `perspective(1000px) rotateY(${moveX}deg) rotateX(${-moveY}deg) translateY(-5px)`;
+                        });
+                        
+                        scene.addEventListener('mouseleave', () => {
+                            scene.style.transform = 'perspective(1000px) rotateY(0) rotateX(0) translateY(0)';
+                        });
                     });
-                    
-                    scene.addEventListener('mouseleave', () => {
-                        scene.style.transform = 'perspective(1000px) rotateY(0) rotateX(0) translateY(0)';
-                    });
-                });
+                }
             }
             
             // Интерактивные шутки
             function initJokes() {
                 document.querySelectorAll('.joke-box').forEach(joke => {
                     joke.addEventListener('click', function() {
+                        // Сбрасываем другие активные шутки
+                        document.querySelectorAll('.joke-box').forEach(j => {
+                            if (j !== this) j.classList.remove('active');
+                        });
+                        
                         this.classList.add('active');
                         
                         setTimeout(() => {
@@ -941,17 +1147,20 @@
                 const heartsContainer = document.getElementById('heartsContainer');
                 heartsContainer.innerHTML = '';
                 
+                // Меньше сердец на мобильных
+                const heartCount = window.innerWidth < 768 ? 15 : 25;
+                
                 // Создаем плавающие сердца
-                for (let i = 0; i < 30; i++) {
+                for (let i = 0; i < heartCount; i++) {
                     const heart = document.createElement('div');
                     heart.classList.add('heart');
                     heart.innerHTML = '❤️';
                     
                     // Случайная позиция и задержка
                     heart.style.left = `${Math.random() * 100}%`;
-                    heart.style.fontSize = `${Math.random() * 2 + 1.5}rem`;
-                    heart.style.animationDelay = `${Math.random() * 5}s`;
-                    heart.style.animationDuration = `${Math.random() * 5 + 8}s`;
+                    heart.style.fontSize = `${Math.random() * 1 + 1}rem`;
+                    heart.style.animationDelay = `${Math.random() * 3}s`;
+                    heart.style.animationDuration = `${Math.random() * 4 + 6}s`;
                     
                     heartsContainer.appendChild(heart);
                 }
@@ -959,7 +1168,12 @@
                 // Запускаем пульсацию финального текста
                 const finalLines = document.querySelectorAll('.final-line');
                 finalLines.forEach((line, index) => {
-                    line.style.animation = `fadeUp 1.5s ${index * 1.5 + 0.5}s forwards, pulse 3s ${index * 1.5 + 2}s infinite`;
+                    line.style.animation = `fadeUp 1.5s ${index * 1.5 + 0.5}s forwards`;
+                    
+                    // Добавляем пульсацию после появления
+                    setTimeout(() => {
+                        line.style.animation += `, pulse 3s infinite`;
+                    }, index * 1500 + 500);
                 });
             }
             
@@ -975,6 +1189,14 @@
             
             // Запускаем начальную анимацию
             startTypingAnimation();
+            
+            // Авто-прокрутка подсказки на первом экране
+            setTimeout(() => {
+                if (currentSection === 0) {
+                    const hint = document.querySelector('.hint');
+                    hint.style.animation = 'pulse 2s infinite';
+                }
+            }, 1000);
         }
     </script>
 </body>
