@@ -952,16 +952,8 @@
             const sections = document.querySelectorAll('section');
             const navDots = document.querySelectorAll('.nav-dot');
             let currentSection = 0;
-            let isTransitioning = false; // Флаг для предотвращения множественных переходов
-            let touchStartX = 0;
-            let touchEndX = 0;
             
             function showSection(index) {
-                if (isTransitioning) return;
-                if (index < 0 || index >= sections.length) return;
-                
-                isTransitioning = true;
-                
                 sections.forEach((section, i) => {
                     section.classList.remove('active', 'next', 'prev');
                     
@@ -995,94 +987,74 @@
                         startFinalAnimation();
                         break;
                 }
-                
-                // Сбрасываем флаг после завершения анимации
-                setTimeout(() => {
-                    isTransitioning = false;
-                }, 1200); // Время должно совпадать с duration перехода в CSS
             }
             
             // Навигация по точкам
             navDots.forEach((dot, index) => {
                 dot.addEventListener('click', () => {
-                    if (!isTransitioning) {
-                        showSection(index);
-                    }
+                    showSection(index);
                 });
             });
             
-            // Обработка свайпов
-            document.addEventListener('touchstart', (e) => {
-                touchStartX = e.touches[0].clientX;
-            }, { passive: true });
+            // Навигация скроллом/свайпом
+            let touchStartX = 0;
+            let touchEndX = 0;
+            let isScrolling = false;
             
-            document.addEventListener('touchmove', (e) => {
-                if (isTransitioning) {
+            // Отключаем вертикальный скролл на корневом элементе
+            document.addEventListener('touchmove', function(e) {
+                if (e.target.closest('.story-container')) {
+                    return; // Разрешаем скролл в контейнере историй
+                }
+                
+                // Блокируем вертикальный скролл для смены секций
+                if (Math.abs(e.touches[0].clientX - touchStartX) > 10) {
                     e.preventDefault();
                 }
             }, { passive: false });
             
-            document.addEventListener('touchend', (e) => {
-                if (isTransitioning) return;
-                
-                touchEndX = e.changedTouches[0].clientX;
-                const swipeThreshold = 50;
-                const diffX = touchStartX - touchEndX;
-                
-                // Определяем направление свайпа
-                if (Math.abs(diffX) > swipeThreshold) {
-                    if (diffX > 0 && currentSection < sections.length - 1) {
-                        // Свайп влево -> следующий слайд
-                        showSection(currentSection + 1);
-                    } else if (diffX < 0 && currentSection > 0) {
-                        // Свайп вправо -> предыдущий слайд
-                        showSection(currentSection - 1);
-                    }
+            document.addEventListener('touchstart', (e) => {
+                touchStartX = e.touches[0].clientX;
+                isScrolling = false;
+            });
+            
+            document.addEventListener('touchmove', (e) => {
+                if (Math.abs(e.touches[0].clientX - touchStartX) > 20) {
+                    isScrolling = true;
                 }
             });
             
-            // Обработка кликов для перехода
-            document.addEventListener('click', (e) => {
-                if (isTransitioning) return;
+            document.addEventListener('touchend', (e) => {
+                if (!isScrolling) return;
                 
+                touchEndX = e.changedTouches[0].clientX;
+                handleSwipe();
+            });
+            
+            function handleSwipe() {
+                const swipeThreshold = 50;
+                
+                if (touchEndX < touchStartX - swipeThreshold && currentSection < sections.length - 1) {
+                    showSection(currentSection + 1);
+                }
+                
+                if (touchEndX > touchStartX + swipeThreshold && currentSection > 0) {
+                    showSection(currentSection - 1);
+                }
+            }
+            
+            // Клик для перехода на следующий экран
+            document.addEventListener('click', (e) => {
                 // Если клик не по интерактивным элементам
                 if (!e.target.closest('.joke-box') && 
                     !e.target.closest('.nav-dot') && 
                     !e.target.closest('.story-container') &&
-                    !e.target.closest('.hint') &&
-                    !e.target.closest('.story-scene')) {
-                    
-                    // Определяем, в какой части экрана был клик для определения направления
-                    const clickX = e.clientX || e.touches[0].clientX;
-                    const screenWidth = window.innerWidth;
-                    
-                    // Если клик в правой части экрана - вперед
-                    if (clickX > screenWidth * 0.6 && currentSection < sections.length - 1) {
-                        showSection(currentSection + 1);
-                    }
-                    // Если клик в левой части экрана - назад
-                    else if (clickX < screenWidth * 0.4 && currentSection > 0) {
-                        showSection(currentSection - 1);
-                    }
-                    // Если клик в центре - вперед (как было изначально)
-                    else if (currentSection < sections.length - 1) {
+                    !e.target.closest('.hint')) {
+                    if (currentSection < sections.length - 1) {
                         showSection(currentSection + 1);
                     }
                 }
             });
-            
-            // Запрещаем прокрутку при касании на активных элементах
-            document.addEventListener('touchmove', function(e) {
-                // Разрешаем скролл только в контейнере историй
-                if (e.target.closest('.story-container')) {
-                    return;
-                }
-                
-                // Если происходит переход, блокируем скролл
-                if (isTransitioning) {
-                    e.preventDefault();
-                }
-            }, { passive: false });
             
             // Анимация печатающегося текста
             const typingText = document.getElementById('typingText');
@@ -1096,15 +1068,9 @@
             let charIndex = 0;
             let isDeleting = false;
             let typingSpeed = 100;
-            let typingAnimationId = null;
             
             function startTypingAnimation() {
-                if (currentSection !== 0) {
-                    if (typingAnimationId) {
-                        clearTimeout(typingAnimationId);
-                    }
-                    return;
-                }
+                if (currentSection !== 0) return;
                 
                 const currentMessage = messages[messageIndex];
                 
@@ -1127,7 +1093,7 @@
                     typingSpeed = 500; // Пауза перед новым сообщением
                 }
                 
-                typingAnimationId = setTimeout(startTypingAnimation, typingSpeed);
+                setTimeout(startTypingAnimation, typingSpeed);
             }
             
             // История с горизонтальным скроллом
